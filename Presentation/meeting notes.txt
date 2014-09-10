@@ -1,0 +1,38 @@
+layer 2 WiFi, same VLAN, routed to same router
+reason: promote mobility, all the hand-off are done at layer2
+Users to network
+
+30 min logout estimating
+
+transaction data (maybe)
+demographic data(academic department, employment department, standing, master/phd, title if employed)
+
+laura levy, observation methods, statistical verification
+
+
+Data:
+Authentication data: de-identified userid, mac-address, time stamps,location
+Buzzcard transaction: de-identified userid, location, time
+
+
+Me:e92aKiAnZIlSksHxY7V0weA9pAbcVv8k,
+Daniel:mpyoDRlwkVOSWZGdN/j1lwDum9Rnsi1Z,
+weird :FYfi8121VHw1cDpQ3ZUiznpAHD1p5tcZ,
+
+IRB draft
+acuqired data: June 400,000
+data not stable, example
+created a field
+algorithm, EM
+
+
+
+
+
+
+
+
+
+
+
+
