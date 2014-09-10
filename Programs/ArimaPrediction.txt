@@ -1,0 +1,109 @@
+mydf <- read.table('Demo_Stats.csv', header=TRUE, sep=",")
+everybody=mydf$guest+mydf$member+mydf$affiliate+mydf$student+mydf$faculty+mydf$employee+mydf$staff
+Jan1ToApr15<-everybody[0:10081]
+myts <- ts(Jan1ToApr15,frequency=365*24*4) #since the data is every 15 mins:
+
+#Some nice graphs:
+fit <- stl(myts, s.window="period")
+plot(fit)
+
+#This one has proven to work best so far:
+## simple exponential - models level
+fit <- HoltWinters(myts, beta=FALSE, gamma=FALSE)
+library(forecast)
+accuracy(fit)
+
+
+forecast(fit, 1)
+
+
+
+mydf <- read.table('StarbucksCountsJantoJunEvery5.csv', header=TRUE, sep=",")
+Jan1ToApr15<-everybody[0:10081]
+myts <- ts(Jan1ToApr15,frequency=365*24*4) #since the data is every 15 mins:
+
+
+n=10000
+error=c(n,1)
+for (i in 1:n ){
+Jan1ToApr15<-everybody[0:100+i]
+myts <- ts(Jan1ToApr15,frequency=365*24*4) #since the data is every 15 mins:
+fit <- HoltWinters(myts, beta=FALSE, gamma=FALSE, seasonal = c("additive", "multiplicative"))
+
+
+f<-forecast(fit, 1)
+error[i]=(f$mean[[1]]-everybody[10081+i])
+}
+
+
+
+
+
+
+
+
+
+
+Holt Winters is not good because:
+This is the simplest form of exponential smoothing and can be used only for data without any
+systematic trend or seasonal components
+
+The data has no systematic trend (it doesn't go altogether up or altogether down), 
+but it does have seasonal components (Mondays are similar, tuesdays are similar, etc)
+
+
+
+
+libra(forecast)
+mydf <- read.table('../DGU_Data/Stats.tsv', header=TRUE, sep="\t")
+everybody=mydf$affiliate+mydf$employee+mydf$guest+mydf$student+mydf$staff+mydf$faculty+mydf$member
+myts <- ts(everybody,frequency=24*12, start=c(2014,1)) #since the data is every 5 mins
+
+
+Classes started Jan 6 2013
+ini=1450 
+
+This is the beginning of April:
+fin=25949
+
+fin<-fin+1
+a<-auto.arima(myts[ini:fin])
+p<-a$arma[1]
+q<-a$arma[2]
+d<-a$arma[6]
+fit<-arima(myts[ini:fin],order=c(p,d,q))
+b<-forecast(fit,12)
+Values<-data.frame(b$mean)
+Lower<-data.frame(b$lower)
+Upper<-data.frame(b$upper)
+j=8640
+
+
+for (i in 1:j){  
+	fin<-fin+1
+	a<-auto.arima(myts[ini:fin])
+	p<-a$arma[1]
+	q<-a$arma[2]
+	d<-a$arma[6]
+	fit<-arima(myts[ini:fin],order=c(p,d,q))
+	b<-forecast(fit,12)
+	Values<-data.frame(Values,b$mean)
+	Lower<-data.frame(Lower,b$lower)
+	Upper<-data.frame(Upper,b$upper)
+	
+}
+
+plot(t(Values[1,]))
+
+
+plot(array(10,c(1,length(Values[1,]))),t(Values[1,]))
+
+
+
+
+
+
+#frequency is number of observations per unit of time
+
+
+
